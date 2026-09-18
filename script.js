@@ -4,12 +4,26 @@ const navigation = document.querySelector('.site-nav');
 menuToggle.addEventListener('click', () => {
   const isOpen = navigation.classList.toggle('open');
   menuToggle.setAttribute('aria-expanded', isOpen);
+  menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
 });
 
 document.querySelectorAll('.site-nav a').forEach((link) => link.addEventListener('click', () => {
   navigation.classList.remove('open');
   menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open navigation');
 }));
+
+const headerMessages = document.querySelectorAll('.contact-message');
+let activeHeaderMessage = 0;
+
+function rotateHeaderContact() {
+  headerMessages.forEach((message, index) => message.classList.toggle('active', index === activeHeaderMessage));
+  activeHeaderMessage = (activeHeaderMessage + 1) % headerMessages.length;
+}
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  setInterval(rotateHeaderContact, 10000);
+}
 
 const filters = document.querySelectorAll('.filter');
 const dishes = document.querySelectorAll('.dish-card');
