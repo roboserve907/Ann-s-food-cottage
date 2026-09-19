@@ -141,3 +141,15 @@ enquiryForm.addEventListener('submit', (event) => {
       submitButton.innerHTML = 'Send enquiry <span>↗</span>';
     });
 });
+
+const ceoPhotos = document.querySelectorAll('.ceo-slide');
+let activeCeoPhoto = 0;
+
+function rotateCeoPhoto() {
+  activeCeoPhoto = (activeCeoPhoto + 1) % ceoPhotos.length;
+  ceoPhotos.forEach((photo, index) => photo.classList.toggle('active', index === activeCeoPhoto));
+}
+
+if (ceoPhotos.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  setInterval(rotateCeoPhoto, 10000);
+}
